@@ -319,8 +319,8 @@ RED フェーズを飛ばさないでください。テストの前にコード�
 
 ## 関連エージェント
 
-このコマンドは以下の `tdd-guide` エージェントを呼び出します：
-`~/.claude/agents/tdd-guide.md`
+このコマンドは `tdd-guide` エージェントを呼び出します：
+`agents/tdd-guide.md`
 
-また、以下の `tdd-workflow` スキルを参照できます：
-`~/.claude/skills/tdd-workflow/`
+また、`tdd-workflow` スキルを参照できます：
+`skills/tdd-workflow/`

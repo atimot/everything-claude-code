@@ -142,7 +142,9 @@ return fmt.Errorf("get user %s: %w", userID, err)
 - `/go-review` をコミット前に使用
 - `/code-review` をGo固有でない懸念事項に使用
 
-## 関連ファイル
+## 関連エージェント
 
-- エージェント: `agents/go-reviewer.md`
-- スキル: `skills/golang-patterns/`、`skills/golang-testing/`
+このコマンドは `go-reviewer` エージェントを呼び出します:
+`agents/go-reviewer.md`
+
+関連スキル: `skills/golang-patterns/`、`skills/golang-testing/`

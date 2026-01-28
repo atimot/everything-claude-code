@@ -177,7 +177,9 @@ ok      project/internal/handler   0.023s
 - `/go-review` - コード品質をレビュー
 - `/verify` - 完全な検証ループ
 
-## 関連ファイル
+## 関連エージェント
 
-- エージェント: `agents/go-build-resolver.md`
-- スキル: `skills/golang-patterns/`
+このコマンドは `go-build-resolver` エージェントを呼び出します:
+`agents/go-build-resolver.md`
+
+関連スキル: `skills/golang-patterns/`
