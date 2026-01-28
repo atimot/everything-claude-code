@@ -1,46 +1,46 @@
-# Hooks System
+# フックシステム
 
-## Hook Types
+## フックの種類
 
-- **PreToolUse**: Before tool execution (validation, parameter modification)
-- **PostToolUse**: After tool execution (auto-format, checks)
-- **Stop**: When session ends (final verification)
+- **PreToolUse**: ツール実行前（バリデーション、パラメータ変更）
+- **PostToolUse**: ツール実行後（自動フォーマット、チェック）
+- **Stop**: セッション終了時（最終検証）
 
-## Current Hooks (in ~/.claude/settings.json)
+## 現在のフック（~/.claude/settings.json 内）
 
 ### PreToolUse
-- **tmux reminder**: Suggests tmux for long-running commands (npm, pnpm, yarn, cargo, etc.)
-- **git push review**: Opens Zed for review before push
-- **doc blocker**: Blocks creation of unnecessary .md/.txt files
+- **tmuxリマインダー**: 長時間実行コマンド（npm, pnpm, yarn, cargo等）にtmuxを提案
+- **git pushレビュー**: プッシュ前にZedでレビューを開く
+- **ドキュメントブロッカー**: 不要な .md/.txt ファイルの作成をブロック
 
 ### PostToolUse
-- **PR creation**: Logs PR URL and GitHub Actions status
-- **Prettier**: Auto-formats JS/TS files after edit
-- **TypeScript check**: Runs tsc after editing .ts/.tsx files
-- **console.log warning**: Warns about console.log in edited files
+- **PR作成**: PR URLとGitHub Actionsステータスをログ出力
+- **Prettier**: 編集後にJS/TSファイルを自動フォーマット
+- **TypeScriptチェック**: .ts/.tsx ファイル編集後にtscを実行
+- **console.log警告**: 編集したファイル内のconsole.logについて警告
 
 ### Stop
-- **console.log audit**: Checks all modified files for console.log before session ends
+- **console.log監査**: セッション終了前に全変更ファイルのconsole.logをチェック
 
-## Auto-Accept Permissions
+## 自動承認パーミッション
 
-Use with caution:
-- Enable for trusted, well-defined plans
-- Disable for exploratory work
-- Never use dangerously-skip-permissions flag
-- Configure `allowedTools` in `~/.claude.json` instead
+慎重に使用:
+- 信頼できる明確な計画に対して有効化
+- 探索的な作業には無効化
+- dangerously-skip-permissionsフラグは絶対に使用しない
+- 代わりに `~/.claude.json` で `allowedTools` を設定
 
-## TodoWrite Best Practices
+## TodoWriteのベストプラクティス
 
-Use TodoWrite tool to:
-- Track progress on multi-step tasks
-- Verify understanding of instructions
-- Enable real-time steering
-- Show granular implementation steps
+TodoWriteツールの使用目的:
+- 複数ステップのタスクの進捗追跡
+- 指示の理解度確認
+- リアルタイムでの方向修正
+- 詳細な実装ステップの表示
 
-Todo list reveals:
-- Out of order steps
-- Missing items
-- Extra unnecessary items
-- Wrong granularity
-- Misinterpreted requirements
+Todoリストで判明すること:
+- 順序が間違っているステップ
+- 欠落している項目
+- 不要な項目
+- 粒度の間違い
+- 要件の誤解

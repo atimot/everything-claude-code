@@ -1,23 +1,23 @@
 ---
 name: golang-testing
-description: Go testing patterns including table-driven tests, subtests, benchmarks, fuzzing, and test coverage. Follows TDD methodology with idiomatic Go practices.
+description: テーブル駆動テスト、サブテスト、ベンチマーク、ファジング、テストカバレッジを含むGoテストパターン。Go言語のイディオマティックなプラクティスに基づくTDD手法に従います。
 ---
 
-# Go Testing Patterns
+# Goテストパターン
 
-Comprehensive Go testing patterns for writing reliable, maintainable tests following TDD methodology.
+TDD手法に従った、信頼性が高く保守性のあるテストを書くための包括的なGoテストパターン。
 
-## When to Activate
+## 適用すべきタイミング
 
-- Writing new Go functions or methods
-- Adding test coverage to existing code
-- Creating benchmarks for performance-critical code
-- Implementing fuzz tests for input validation
-- Following TDD workflow in Go projects
+- 新しいGo関数やメソッドを書くとき
+- 既存コードにテストカバレッジを追加するとき
+- パフォーマンスクリティカルなコードのベンチマークを作成するとき
+- 入力バリデーションのファズテストを実装するとき
+- GoプロジェクトでTDDワークフローに従うとき
 
-## TDD Workflow for Go
+## GoにおけるTDDワークフロー
 
-### The RED-GREEN-REFACTOR Cycle
+### RED-GREEN-REFACTORサイクル
 
 ```
 RED     → Write a failing test first
@@ -26,7 +26,7 @@ REFACTOR → Improve code while keeping tests green
 REPEAT  → Continue with next requirement
 ```
 
-### Step-by-Step TDD in Go
+### GoにおけるTDDのステップバイステップ
 
 ```go
 // Step 1: Define the interface/signature
@@ -68,9 +68,9 @@ func Add(a, b int) int {
 // Step 6: Refactor if needed, verify tests still pass
 ```
 
-## Table-Driven Tests
+## テーブル駆動テスト
 
-The standard pattern for Go tests. Enables comprehensive coverage with minimal code.
+Goテストの標準パターン。最小限のコードで包括的なカバレッジを実現します。
 
 ```go
 func TestAdd(t *testing.T) {
@@ -98,7 +98,7 @@ func TestAdd(t *testing.T) {
 }
 ```
 
-### Table-Driven Tests with Error Cases
+### エラーケースを含むテーブル駆動テスト
 
 ```go
 func TestParseConfig(t *testing.T) {
@@ -153,9 +153,9 @@ func TestParseConfig(t *testing.T) {
 }
 ```
 
-## Subtests and Sub-benchmarks
+## サブテストとサブベンチマーク
 
-### Organizing Related Tests
+### 関連テストの整理
 
 ```go
 func TestUser(t *testing.T) {
@@ -193,7 +193,7 @@ func TestUser(t *testing.T) {
 }
 ```
 
-### Parallel Subtests
+### 並列サブテスト
 
 ```go
 func TestParallel(t *testing.T) {
@@ -218,9 +218,9 @@ func TestParallel(t *testing.T) {
 }
 ```
 
-## Test Helpers
+## テストヘルパー
 
-### Helper Functions
+### ヘルパー関数
 
 ```go
 func setupTestDB(t *testing.T) *sql.DB {
@@ -259,7 +259,7 @@ func assertEqual[T comparable](t *testing.T, got, want T) {
 }
 ```
 
-### Temporary Files and Directories
+### 一時ファイルとディレクトリ
 
 ```go
 func TestFileProcessing(t *testing.T) {
@@ -284,9 +284,9 @@ func TestFileProcessing(t *testing.T) {
 }
 ```
 
-## Golden Files
+## ゴールデンファイル
 
-Testing against expected output files stored in `testdata/`.
+`testdata/` に保存された期待出力ファイルに対してテストします。
 
 ```go
 var update = flag.Bool("update", false, "update golden files")
@@ -327,9 +327,9 @@ func TestRender(t *testing.T) {
 }
 ```
 
-## Mocking with Interfaces
+## インターフェースによるモック
 
-### Interface-Based Mocking
+### インターフェースベースのモック
 
 ```go
 // Define interface for dependencies
@@ -384,9 +384,9 @@ func TestUserService(t *testing.T) {
 }
 ```
 
-## Benchmarks
+## ベンチマーク
 
-### Basic Benchmarks
+### 基本的なベンチマーク
 
 ```go
 func BenchmarkProcess(b *testing.B) {
@@ -402,7 +402,7 @@ func BenchmarkProcess(b *testing.B) {
 // Output: BenchmarkProcess-8   10000   105234 ns/op   4096 B/op   10 allocs/op
 ```
 
-### Benchmark with Different Sizes
+### 異なるサイズでのベンチマーク
 
 ```go
 func BenchmarkSort(b *testing.B) {
@@ -424,7 +424,7 @@ func BenchmarkSort(b *testing.B) {
 }
 ```
 
-### Memory Allocation Benchmarks
+### メモリアロケーションベンチマーク
 
 ```go
 func BenchmarkStringConcat(b *testing.B) {
@@ -458,9 +458,9 @@ func BenchmarkStringConcat(b *testing.B) {
 }
 ```
 
-## Fuzzing (Go 1.18+)
+## ファジング（Go 1.18以降）
 
-### Basic Fuzz Test
+### 基本的なファズテスト
 
 ```go
 func FuzzParseJSON(f *testing.F) {
@@ -490,7 +490,7 @@ func FuzzParseJSON(f *testing.F) {
 // Run: go test -fuzz=FuzzParseJSON -fuzztime=30s
 ```
 
-### Fuzz Test with Multiple Inputs
+### 複数入力のファズテスト
 
 ```go
 func FuzzCompare(f *testing.F) {
@@ -518,9 +518,9 @@ func FuzzCompare(f *testing.F) {
 }
 ```
 
-## Test Coverage
+## テストカバレッジ
 
-### Running Coverage
+### カバレッジの実行
 
 ```bash
 # Basic coverage
@@ -539,16 +539,16 @@ go tool cover -func=coverage.out
 go test -race -coverprofile=coverage.out ./...
 ```
 
-### Coverage Targets
+### カバレッジ目標
 
-| Code Type | Target |
+| コードの種類 | 目標 |
 |-----------|--------|
-| Critical business logic | 100% |
-| Public APIs | 90%+ |
-| General code | 80%+ |
-| Generated code | Exclude |
+| 重要なビジネスロジック | 100% |
+| 公開API | 90%以上 |
+| 一般的なコード | 80%以上 |
+| 自動生成コード | 除外 |
 
-### Excluding Generated Code from Coverage
+### 自動生成コードのカバレッジ除外
 
 ```go
 //go:generate mockgen -source=interface.go -destination=mock_interface.go
@@ -557,7 +557,7 @@ go test -race -coverprofile=coverage.out ./...
 // go test -cover -tags=!generate ./...
 ```
 
-## HTTP Handler Testing
+## HTTPハンドラテスト
 
 ```go
 func TestHealthHandler(t *testing.T) {
@@ -640,7 +640,7 @@ func TestAPIHandler(t *testing.T) {
 }
 ```
 
-## Testing Commands
+## テストコマンド
 
 ```bash
 # Run all tests
@@ -677,25 +677,25 @@ go test -fuzz=FuzzParse -fuzztime=30s ./...
 go test -count=10 ./...
 ```
 
-## Best Practices
+## ベストプラクティス
 
-**DO:**
-- Write tests FIRST (TDD)
-- Use table-driven tests for comprehensive coverage
-- Test behavior, not implementation
-- Use `t.Helper()` in helper functions
-- Use `t.Parallel()` for independent tests
-- Clean up resources with `t.Cleanup()`
-- Use meaningful test names that describe the scenario
+**推奨:**
+- テストを先に書く（TDD）
+- 包括的なカバレッジのためにテーブル駆動テストを使用する
+- 実装ではなく振る舞いをテストする
+- ヘルパー関数では `t.Helper()` を使用する
+- 独立したテストでは `t.Parallel()` を使用する
+- `t.Cleanup()` でリソースをクリーンアップする
+- シナリオを説明する意味のあるテスト名を使用する
 
-**DON'T:**
-- Test private functions directly (test through public API)
-- Use `time.Sleep()` in tests (use channels or conditions)
-- Ignore flaky tests (fix or remove them)
-- Mock everything (prefer integration tests when possible)
-- Skip error path testing
+**非推奨:**
+- プライベート関数を直接テストしない（公開APIを通じてテストする）
+- テストで `time.Sleep()` を使わない（チャネルや条件を使用する）
+- 不安定なテストを放置しない（修正するか削除する）
+- すべてをモックしない（可能であれば統合テストを優先する）
+- エラーパスのテストを省略しない
 
-## Integration with CI/CD
+## CI/CDとの統合
 
 ```yaml
 # GitHub Actions example
@@ -716,4 +716,4 @@ test:
         awk -F'%' '{if ($1 < 80) exit 1}'
 ```
 
-**Remember**: Tests are documentation. They show how your code is meant to be used. Write them clearly and keep them up to date.
+**重要**: テストはドキュメントです。テストはコードがどのように使われるべきかを示します。テストを明確に書き、最新の状態に保ちましょう。

@@ -1,54 +1,54 @@
 ---
 name: tdd-workflow
-description: Use this skill when writing new features, fixing bugs, or refactoring code. Enforces test-driven development with 80%+ coverage including unit, integration, and E2E tests.
+description: 新機能の開発、バグ修正、リファクタリング時に使用するスキルです。ユニットテスト、インテグレーションテスト、E2Eテストを含む80%以上のカバレッジでテスト駆動開発を実施します。
 ---
 
-# Test-Driven Development Workflow
+# テスト駆動開発ワークフロー
 
-This skill ensures all code development follows TDD principles with comprehensive test coverage.
+このスキルは、すべてのコード開発がTDD原則に従い、包括的なテストカバレッジを確保します。
 
-## When to Activate
+## 使用タイミング
 
-- Writing new features or functionality
-- Fixing bugs or issues
-- Refactoring existing code
-- Adding API endpoints
-- Creating new components
+- 新機能や機能の開発時
+- バグや問題の修正時
+- 既存コードのリファクタリング時
+- APIエンドポイントの追加時
+- 新しいコンポーネントの作成時
 
-## Core Principles
+## 基本原則
 
-### 1. Tests BEFORE Code
-ALWAYS write tests first, then implement code to make tests pass.
+### 1. コードの前にテストを書く
+常にテストを先に書き、そのテストを通過するコードを実装します。
 
-### 2. Coverage Requirements
-- Minimum 80% coverage (unit + integration + E2E)
-- All edge cases covered
-- Error scenarios tested
-- Boundary conditions verified
+### 2. カバレッジ要件
+- 最低80%のカバレッジ（ユニット + インテグレーション + E2E）
+- すべてのエッジケースをカバー
+- エラーシナリオのテスト
+- 境界条件の検証
 
-### 3. Test Types
+### 3. テストの種類
 
-#### Unit Tests
-- Individual functions and utilities
-- Component logic
-- Pure functions
-- Helpers and utilities
+#### ユニットテスト
+- 個別の関数やユーティリティ
+- コンポーネントのロジック
+- 純粋関数
+- ヘルパーとユーティリティ
 
-#### Integration Tests
-- API endpoints
-- Database operations
-- Service interactions
-- External API calls
+#### インテグレーションテスト
+- APIエンドポイント
+- データベース操作
+- サービス間の連携
+- 外部API呼び出し
 
-#### E2E Tests (Playwright)
-- Critical user flows
-- Complete workflows
-- Browser automation
-- UI interactions
+#### E2Eテスト（Playwright）
+- 重要なユーザーフロー
+- 完全なワークフロー
+- ブラウザ自動化
+- UI操作
 
-## TDD Workflow Steps
+## TDDワークフローの手順
 
-### Step 1: Write User Journeys
+### ステップ1：ユーザージャーニーを書く
 ```
 As a [role], I want to [action], so that [benefit]
 
@@ -57,8 +57,8 @@ As a user, I want to search for markets semantically,
 so that I can find relevant markets even without exact keywords.
 ```
 
-### Step 2: Generate Test Cases
-For each user journey, create comprehensive test cases:
+### ステップ2：テストケースを生成する
+各ユーザージャーニーに対して、包括的なテストケースを作成します：
 
 ```typescript
 describe('Semantic Search', () => {
@@ -80,14 +80,14 @@ describe('Semantic Search', () => {
 })
 ```
 
-### Step 3: Run Tests (They Should Fail)
+### ステップ3：テストを実行する（失敗するはず）
 ```bash
 npm test
 # Tests should fail - we haven't implemented yet
 ```
 
-### Step 4: Implement Code
-Write minimal code to make tests pass:
+### ステップ4：コードを実装する
+テストを通過するための最小限のコードを書きます：
 
 ```typescript
 // Implementation guided by tests
@@ -96,28 +96,28 @@ export async function searchMarkets(query: string) {
 }
 ```
 
-### Step 5: Run Tests Again
+### ステップ5：再度テストを実行する
 ```bash
 npm test
 # Tests should now pass
 ```
 
-### Step 6: Refactor
-Improve code quality while keeping tests green:
-- Remove duplication
-- Improve naming
-- Optimize performance
-- Enhance readability
+### ステップ6：リファクタリング
+テストがグリーンの状態を維持しながらコード品質を改善します：
+- 重複の除去
+- 命名の改善
+- パフォーマンスの最適化
+- 可読性の向上
 
-### Step 7: Verify Coverage
+### ステップ7：カバレッジを確認する
 ```bash
 npm run test:coverage
 # Verify 80%+ coverage achieved
 ```
 
-## Testing Patterns
+## テストパターン
 
-### Unit Test Pattern (Jest/Vitest)
+### ユニットテストパターン（Jest/Vitest）
 ```typescript
 import { render, screen, fireEvent } from '@testing-library/react'
 import { Button } from './Button'
@@ -144,7 +144,7 @@ describe('Button Component', () => {
 })
 ```
 
-### API Integration Test Pattern
+### APIインテグレーションテストパターン
 ```typescript
 import { NextRequest } from 'next/server'
 import { GET } from './route'
@@ -175,7 +175,7 @@ describe('GET /api/markets', () => {
 })
 ```
 
-### E2E Test Pattern (Playwright)
+### E2Eテストパターン（Playwright）
 ```typescript
 import { test, expect } from '@playwright/test'
 
@@ -228,7 +228,7 @@ test('user can create a new market', async ({ page }) => {
 })
 ```
 
-## Test File Organization
+## テストファイルの構成
 
 ```
 src/
@@ -251,9 +251,9 @@ src/
     └── auth.spec.ts
 ```
 
-## Mocking External Services
+## 外部サービスのモック
 
-### Supabase Mock
+### Supabaseモック
 ```typescript
 jest.mock('@/lib/supabase', () => ({
   supabase: {
@@ -269,7 +269,7 @@ jest.mock('@/lib/supabase', () => ({
 }))
 ```
 
-### Redis Mock
+### Redisモック
 ```typescript
 jest.mock('@/lib/redis', () => ({
   searchMarketsByVector: jest.fn(() => Promise.resolve([
@@ -279,7 +279,7 @@ jest.mock('@/lib/redis', () => ({
 }))
 ```
 
-### OpenAI Mock
+### OpenAIモック
 ```typescript
 jest.mock('@/lib/openai', () => ({
   generateEmbedding: jest.fn(() => Promise.resolve(
@@ -288,14 +288,14 @@ jest.mock('@/lib/openai', () => ({
 }))
 ```
 
-## Test Coverage Verification
+## テストカバレッジの検証
 
-### Run Coverage Report
+### カバレッジレポートの実行
 ```bash
 npm run test:coverage
 ```
 
-### Coverage Thresholds
+### カバレッジ閾値
 ```json
 {
   "jest": {
@@ -311,41 +311,41 @@ npm run test:coverage
 }
 ```
 
-## Common Testing Mistakes to Avoid
+## よくあるテストの間違い
 
-### ❌ WRONG: Testing Implementation Details
+### 間違い：実装の詳細をテストする
 ```typescript
 // Don't test internal state
 expect(component.state.count).toBe(5)
 ```
 
-### ✅ CORRECT: Test User-Visible Behavior
+### 正しい方法：ユーザーに見える振る舞いをテストする
 ```typescript
 // Test what users see
 expect(screen.getByText('Count: 5')).toBeInTheDocument()
 ```
 
-### ❌ WRONG: Brittle Selectors
+### 間違い：壊れやすいセレクタ
 ```typescript
 // Breaks easily
 await page.click('.css-class-xyz')
 ```
 
-### ✅ CORRECT: Semantic Selectors
+### 正しい方法：セマンティックなセレクタ
 ```typescript
 // Resilient to changes
 await page.click('button:has-text("Submit")')
 await page.click('[data-testid="submit-button"]')
 ```
 
-### ❌ WRONG: No Test Isolation
+### 間違い：テストの独立性がない
 ```typescript
 // Tests depend on each other
 test('creates user', () => { /* ... */ })
 test('updates same user', () => { /* depends on previous test */ })
 ```
 
-### ✅ CORRECT: Independent Tests
+### 正しい方法：独立したテスト
 ```typescript
 // Each test sets up its own data
 test('creates user', () => {
@@ -359,21 +359,21 @@ test('updates user', () => {
 })
 ```
 
-## Continuous Testing
+## 継続的テスト
 
-### Watch Mode During Development
+### 開発中のウォッチモード
 ```bash
 npm test -- --watch
 # Tests run automatically on file changes
 ```
 
-### Pre-Commit Hook
+### プリコミットフック
 ```bash
 # Runs before every commit
 npm test && npm run lint
 ```
 
-### CI/CD Integration
+### CI/CDとの統合
 ```yaml
 # GitHub Actions
 - name: Run Tests
@@ -382,28 +382,28 @@ npm test && npm run lint
   uses: codecov/codecov-action@v3
 ```
 
-## Best Practices
+## ベストプラクティス
 
-1. **Write Tests First** - Always TDD
-2. **One Assert Per Test** - Focus on single behavior
-3. **Descriptive Test Names** - Explain what's tested
-4. **Arrange-Act-Assert** - Clear test structure
-5. **Mock External Dependencies** - Isolate unit tests
-6. **Test Edge Cases** - Null, undefined, empty, large
-7. **Test Error Paths** - Not just happy paths
-8. **Keep Tests Fast** - Unit tests < 50ms each
-9. **Clean Up After Tests** - No side effects
-10. **Review Coverage Reports** - Identify gaps
+1. **テストを先に書く** - 常にTDDで
+2. **1テストにつき1アサーション** - 単一の振る舞いに集中する
+3. **わかりやすいテスト名** - テスト対象を明確に説明する
+4. **Arrange-Act-Assert** - 明確なテスト構造
+5. **外部依存関係をモックする** - ユニットテストを独立させる
+6. **エッジケースをテストする** - null、undefined、空、大きな値
+7. **エラーパスをテストする** - ハッピーパスだけでなく
+8. **テストを高速に保つ** - ユニットテストは各50ms以内
+9. **テスト後にクリーンアップ** - 副作用を残さない
+10. **カバレッジレポートを確認する** - ギャップを特定する
 
-## Success Metrics
+## 成功指標
 
-- 80%+ code coverage achieved
-- All tests passing (green)
-- No skipped or disabled tests
-- Fast test execution (< 30s for unit tests)
-- E2E tests cover critical user flows
-- Tests catch bugs before production
+- 80%以上のコードカバレッジを達成
+- すべてのテストが合格（グリーン）
+- スキップまたは無効化されたテストがない
+- テスト実行が高速（ユニットテストは30秒以内）
+- E2Eテストが重要なユーザーフローをカバー
+- テストが本番環境の前にバグを検出
 
 ---
 
-**Remember**: Tests are not optional. They are the safety net that enables confident refactoring, rapid development, and production reliability.
+**忘れないでください**：テストはオプションではありません。テストは、自信を持ったリファクタリング、迅速な開発、そして本番環境の信頼性を実現するためのセーフティネットです。

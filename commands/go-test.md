@@ -1,60 +1,60 @@
 ---
-description: Enforce TDD workflow for Go. Write table-driven tests first, then implement. Verify 80%+ coverage with go test -cover.
+description: GoのTDDワークフローを強制します。まずテーブル駆動テストを書き、次に実装します。go test -coverで80%以上のカバレッジを検証します。
 ---
 
-# Go TDD Command
+# Go TDDコマンド
 
-This command enforces test-driven development methodology for Go code using idiomatic Go testing patterns.
+このコマンドは、Go慣用のテストパターンを使用して、テスト駆動開発の方法論を強制します。
 
-## What This Command Does
+## このコマンドの動作
 
-1. **Define Types/Interfaces**: Scaffold function signatures first
-2. **Write Table-Driven Tests**: Create comprehensive test cases (RED)
-3. **Run Tests**: Verify tests fail for the right reason
-4. **Implement Code**: Write minimal code to pass (GREEN)
-5. **Refactor**: Improve while keeping tests green
-6. **Check Coverage**: Ensure 80%+ coverage
+1. **型/インターフェースの定義**: 最初に関数シグネチャをスキャフォールド
+2. **テーブル駆動テストの作成**: 包括的なテストケースを作成（RED）
+3. **テストの実行**: テストが正しい理由で失敗することを確認
+4. **コードの実装**: テストを通すための最小限のコードを記述（GREEN）
+5. **リファクタリング**: テストをグリーンに保ちながら改善
+6. **カバレッジの確認**: 80%以上のカバレッジを確保
 
-## When to Use
+## 使用するタイミング
 
-Use `/go-test` when:
-- Implementing new Go functions
-- Adding test coverage to existing code
-- Fixing bugs (write failing test first)
-- Building critical business logic
-- Learning TDD workflow in Go
+`/go-test` は以下の場合に使用してください:
+- 新しいGo関数を実装する場合
+- 既存コードにテストカバレッジを追加する場合
+- バグ修正時（まず失敗するテストを書く）
+- 重要なビジネスロジックを構築する場合
+- GoでのTDDワークフローを学習する場合
 
-## TDD Cycle
+## TDDサイクル
 
 ```
-RED     → Write failing table-driven test
-GREEN   → Implement minimal code to pass
-REFACTOR → Improve code, tests stay green
-REPEAT  → Next test case
+RED     → 失敗するテーブル駆動テストを書く
+GREEN   → テストを通す最小限のコードを実装
+REFACTOR → コードを改善し、テストはグリーンを維持
+REPEAT  → 次のテストケースへ
 ```
 
-## Example Session
+## セッション例
 
 ```text
-User: /go-test I need a function to validate email addresses
+User: /go-test メールアドレスを検証する関数が必要です
 
 Agent:
-# TDD Session: Email Validator
+# TDDセッション: メールバリデーター
 
-## Step 1: Define Interface
+## ステップ 1: インターフェースの定義
 
 ```go
 // validator/email.go
 package validator
 
-// ValidateEmail checks if the given string is a valid email address.
-// Returns nil if valid, error describing the issue otherwise.
+// ValidateEmail は指定された文字列が有効なメールアドレスかどうかを検査します。
+// 有効な場合はnilを返し、それ以外は問題を説明するエラーを返します。
 func ValidateEmail(email string) error {
     panic("not implemented")
 }
 ```
 
-## Step 2: Write Table-Driven Tests (RED)
+## ステップ 2: テーブル駆動テストの作成（RED）
 
 ```go
 // validator/email_test.go
@@ -70,13 +70,13 @@ func TestValidateEmail(t *testing.T) {
         email   string
         wantErr bool
     }{
-        // Valid emails
+        // 有効なメールアドレス
         {"simple email", "user@example.com", false},
         {"with subdomain", "user@mail.example.com", false},
         {"with plus", "user+tag@example.com", false},
         {"with dots", "first.last@example.com", false},
 
-        // Invalid emails
+        // 無効なメールアドレス
         {"empty string", "", true},
         {"no at sign", "userexample.com", true},
         {"no domain", "user@", true},
@@ -100,7 +100,7 @@ func TestValidateEmail(t *testing.T) {
 }
 ```
 
-## Step 3: Run Tests - Verify FAIL
+## ステップ 3: テスト実行 - 失敗を確認
 
 ```bash
 $ go test ./validator/...
@@ -112,9 +112,9 @@ $ go test ./validator/...
 FAIL
 ```
 
-✓ Tests fail as expected (panic).
+✓ 期待通りテストが失敗しました（panic）。
 
-## Step 4: Implement Minimal Code (GREEN)
+## ステップ 4: 最小限のコードを実装（GREEN）
 
 ```go
 // validator/email.go
@@ -143,7 +143,7 @@ func ValidateEmail(email string) error {
 }
 ```
 
-## Step 5: Run Tests - Verify PASS
+## ステップ 5: テスト実行 - パスを確認
 
 ```bash
 $ go test ./validator/...
@@ -152,9 +152,9 @@ PASS
 ok      project/validator    0.003s
 ```
 
-✓ All tests passing!
+✓ 全テストがパスしました！
 
-## Step 6: Check Coverage
+## ステップ 6: カバレッジの確認
 
 ```bash
 $ go test -cover ./validator/...
@@ -164,14 +164,14 @@ coverage: 100.0% of statements
 ok      project/validator    0.003s
 ```
 
-✓ Coverage: 100%
+✓ カバレッジ: 100%
 
-## TDD Complete!
+## TDD完了！
 ```
 
-## Test Patterns
+## テストパターン
 
-### Table-Driven Tests
+### テーブル駆動テスト
 ```go
 tests := []struct {
     name     string
@@ -186,23 +186,23 @@ tests := []struct {
 for _, tt := range tests {
     t.Run(tt.name, func(t *testing.T) {
         got, err := Function(tt.input)
-        // assertions
+        // アサーション
     })
 }
 ```
 
-### Parallel Tests
+### 並列テスト
 ```go
 for _, tt := range tests {
-    tt := tt // Capture
+    tt := tt // キャプチャ
     t.Run(tt.name, func(t *testing.T) {
         t.Parallel()
-        // test body
+        // テスト本体
     })
 }
 ```
 
-### Test Helpers
+### テストヘルパー
 ```go
 func setupTestDB(t *testing.T) *sql.DB {
     t.Helper()
@@ -212,57 +212,57 @@ func setupTestDB(t *testing.T) *sql.DB {
 }
 ```
 
-## Coverage Commands
+## カバレッジコマンド
 
 ```bash
-# Basic coverage
+# 基本カバレッジ
 go test -cover ./...
 
-# Coverage profile
+# カバレッジプロファイル
 go test -coverprofile=coverage.out ./...
 
-# View in browser
+# ブラウザで表示
 go tool cover -html=coverage.out
 
-# Coverage by function
+# 関数別カバレッジ
 go tool cover -func=coverage.out
 
-# With race detection
+# 競合検出付き
 go test -race -cover ./...
 ```
 
-## Coverage Targets
+## カバレッジ目標
 
-| Code Type | Target |
-|-----------|--------|
-| Critical business logic | 100% |
-| Public APIs | 90%+ |
-| General code | 80%+ |
-| Generated code | Exclude |
+| コードの種類 | 目標値 |
+|--------------|--------|
+| 重要なビジネスロジック | 100% |
+| パブリックAPI | 90%以上 |
+| 一般的なコード | 80%以上 |
+| 生成コード | 除外 |
 
-## TDD Best Practices
+## TDDベストプラクティス
 
-**DO:**
-- Write test FIRST, before any implementation
-- Run tests after each change
-- Use table-driven tests for comprehensive coverage
-- Test behavior, not implementation details
-- Include edge cases (empty, nil, max values)
+**やるべきこと:**
+- 実装の前にまずテストを書く
+- 変更のたびにテストを実行する
+- 包括的なカバレッジのためにテーブル駆動テストを使用する
+- 実装の詳細ではなく、振る舞いをテストする
+- エッジケースを含める（空、nil、最大値）
 
-**DON'T:**
-- Write implementation before tests
-- Skip the RED phase
-- Test private functions directly
-- Use `time.Sleep` in tests
-- Ignore flaky tests
+**やってはいけないこと:**
+- テストの前に実装を書く
+- REDフェーズをスキップする
+- プライベート関数を直接テストする
+- テストで `time.Sleep` を使用する
+- フレーキーなテストを放置する
 
-## Related Commands
+## 関連コマンド
 
-- `/go-build` - Fix build errors
-- `/go-review` - Review code after implementation
-- `/verify` - Run full verification loop
+- `/go-build` - ビルドエラーの修正
+- `/go-review` - 実装後のコードレビュー
+- `/verify` - 完全な検証ループの実行
 
-## Related
+## 関連ファイル
 
-- Skill: `skills/golang-testing/`
-- Skill: `skills/tdd-workflow/`
+- スキル: `skills/golang-testing/`
+- スキル: `skills/tdd-workflow/`

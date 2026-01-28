@@ -1,24 +1,24 @@
-# Security Guidelines
+# セキュリティガイドライン
 
-## Mandatory Security Checks
+## 必須セキュリティチェック
 
-Before ANY commit:
-- [ ] No hardcoded secrets (API keys, passwords, tokens)
-- [ ] All user inputs validated
-- [ ] SQL injection prevention (parameterized queries)
-- [ ] XSS prevention (sanitized HTML)
-- [ ] CSRF protection enabled
-- [ ] Authentication/authorization verified
-- [ ] Rate limiting on all endpoints
-- [ ] Error messages don't leak sensitive data
+すべてのコミット前に:
+- [ ] ハードコードされたシークレットがない（APIキー、パスワード、トークン）
+- [ ] すべてのユーザー入力がバリデーションされている
+- [ ] SQLインジェクション対策（パラメータ化クエリ）
+- [ ] XSS対策（サニタイズされたHTML）
+- [ ] CSRF保護が有効
+- [ ] 認証/認可が検証されている
+- [ ] すべてのエンドポイントにレート制限
+- [ ] エラーメッセージが機密データを漏洩しない
 
-## Secret Management
+## シークレット管理
 
 ```typescript
-// NEVER: Hardcoded secrets
+// 絶対にダメ: ハードコードされたシークレット
 const apiKey = "sk-proj-xxxxx"
 
-// ALWAYS: Environment variables
+// 常にこうする: 環境変数
 const apiKey = process.env.OPENAI_API_KEY
 
 if (!apiKey) {
@@ -26,11 +26,11 @@ if (!apiKey) {
 }
 ```
 
-## Security Response Protocol
+## セキュリティ対応プロトコル
 
-If security issue found:
-1. STOP immediately
-2. Use **security-reviewer** agent
-3. Fix CRITICAL issues before continuing
-4. Rotate any exposed secrets
-5. Review entire codebase for similar issues
+セキュリティの問題が見つかった場合:
+1. 直ちに停止
+2. **security-reviewer** エージェントを使用
+3. 続行する前にCRITICALの問題を修正
+4. 漏洩したシークレットをローテーション
+5. コードベース全体で類似の問題をレビュー

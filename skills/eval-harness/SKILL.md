@@ -1,25 +1,25 @@
 ---
 name: eval-harness
-description: Formal evaluation framework for Claude Code sessions implementing eval-driven development (EDD) principles
+description: Claude Codeセッション向けの正式な評価フレームワーク。評価駆動開発（EDD）の原則を実装します。
 tools: Read, Write, Edit, Bash, Grep, Glob
 ---
 
-# Eval Harness Skill
+# 評価ハーネススキル
 
-A formal evaluation framework for Claude Code sessions, implementing eval-driven development (EDD) principles.
+Claude Codeセッション向けの正式な評価フレームワークで、評価駆動開発（EDD）の原則を実装します。
 
-## Philosophy
+## 理念
 
-Eval-Driven Development treats evals as the "unit tests of AI development":
-- Define expected behavior BEFORE implementation
-- Run evals continuously during development
-- Track regressions with each change
-- Use pass@k metrics for reliability measurement
+評価駆動開発は、評価を「AI開発のユニットテスト」として扱います：
+- 実装の前に期待される振る舞いを定義する
+- 開発中に評価を継続的に実行する
+- 変更ごとにリグレッションを追跡する
+- 信頼性測定にpass@kメトリクスを使用する
 
-## Eval Types
+## 評価の種類
 
-### Capability Evals
-Test if Claude can do something it couldn't before:
+### 能力評価
+Claudeが以前できなかったことができるようになったかをテストします：
 ```markdown
 [CAPABILITY EVAL: feature-name]
 Task: Description of what Claude should accomplish
@@ -30,8 +30,8 @@ Success Criteria:
 Expected Output: Description of expected result
 ```
 
-### Regression Evals
-Ensure changes don't break existing functionality:
+### リグレッション評価
+変更が既存の機能を壊していないことを確認します：
 ```markdown
 [REGRESSION EVAL: feature-name]
 Baseline: SHA or checkpoint name
@@ -42,10 +42,10 @@ Tests:
 Result: X/Y passed (previously Y/Y)
 ```
 
-## Grader Types
+## グレーダーの種類
 
-### 1. Code-Based Grader
-Deterministic checks using code:
+### 1. コードベースのグレーダー
+コードを使った決定論的なチェック：
 ```bash
 # Check if file contains expected pattern
 grep -q "export function handleAuth" src/auth.ts && echo "PASS" || echo "FAIL"
@@ -57,8 +57,8 @@ npm test -- --testPathPattern="auth" && echo "PASS" || echo "FAIL"
 npm run build && echo "PASS" || echo "FAIL"
 ```
 
-### 2. Model-Based Grader
-Use Claude to evaluate open-ended outputs:
+### 2. モデルベースのグレーダー
+Claudeを使ってオープンエンドの出力を評価します：
 ```markdown
 [MODEL GRADER PROMPT]
 Evaluate the following code change:
@@ -71,8 +71,8 @@ Score: 1-5 (1=poor, 5=excellent)
 Reasoning: [explanation]
 ```
 
-### 3. Human Grader
-Flag for manual review:
+### 3. ヒューマングレーダー
+手動レビュー用にフラグを立てます：
 ```markdown
 [HUMAN REVIEW REQUIRED]
 Change: Description of what changed
@@ -80,23 +80,23 @@ Reason: Why human review is needed
 Risk Level: LOW/MEDIUM/HIGH
 ```
 
-## Metrics
+## メトリクス
 
 ### pass@k
-"At least one success in k attempts"
-- pass@1: First attempt success rate
-- pass@3: Success within 3 attempts
-- Typical target: pass@3 > 90%
+「k回の試行で少なくとも1回成功」
+- pass@1: 初回試行の成功率
+- pass@3: 3回の試行以内の成功率
+- 一般的な目標: pass@3 > 90%
 
 ### pass^k
-"All k trials succeed"
-- Higher bar for reliability
-- pass^3: 3 consecutive successes
-- Use for critical paths
+「k回の試行すべてが成功」
+- 信頼性に対するより高い基準
+- pass^3: 3回連続の成功
+- クリティカルパスに使用する
 
-## Eval Workflow
+## 評価ワークフロー
 
-### 1. Define (Before Coding)
+### 1. 定義（コーディング前）
 ```markdown
 ## EVAL DEFINITION: feature-xyz
 
@@ -115,10 +115,10 @@ Risk Level: LOW/MEDIUM/HIGH
 - pass^3 = 100% for regression evals
 ```
 
-### 2. Implement
-Write code to pass the defined evals.
+### 2. 実装
+定義された評価に合格するコードを書きます。
 
-### 3. Evaluate
+### 3. 評価
 ```bash
 # Run capability evals
 [Run each capability eval, record PASS/FAIL]
@@ -129,7 +129,7 @@ npm test -- --testPathPattern="existing"
 # Generate report
 ```
 
-### 4. Report
+### 4. レポート
 ```markdown
 EVAL REPORT: feature-xyz
 ========================
@@ -153,48 +153,48 @@ Metrics:
 Status: READY FOR REVIEW
 ```
 
-## Integration Patterns
+## 統合パターン
 
-### Pre-Implementation
+### 実装前
 ```
 /eval define feature-name
 ```
-Creates eval definition file at `.claude/evals/feature-name.md`
+`.claude/evals/feature-name.md` に評価定義ファイルを作成します
 
-### During Implementation
+### 実装中
 ```
 /eval check feature-name
 ```
-Runs current evals and reports status
+現在の評価を実行してステータスを報告します
 
-### Post-Implementation
+### 実装後
 ```
 /eval report feature-name
 ```
-Generates full eval report
+完全な評価レポートを生成します
 
-## Eval Storage
+## 評価の保存
 
-Store evals in project:
+プロジェクト内に評価を保存します：
 ```
 .claude/
   evals/
-    feature-xyz.md      # Eval definition
-    feature-xyz.log     # Eval run history
-    baseline.json       # Regression baselines
+    feature-xyz.md      # 評価定義
+    feature-xyz.log     # 評価実行履歴
+    baseline.json       # リグレッションベースライン
 ```
 
-## Best Practices
+## ベストプラクティス
 
-1. **Define evals BEFORE coding** - Forces clear thinking about success criteria
-2. **Run evals frequently** - Catch regressions early
-3. **Track pass@k over time** - Monitor reliability trends
-4. **Use code graders when possible** - Deterministic > probabilistic
-5. **Human review for security** - Never fully automate security checks
-6. **Keep evals fast** - Slow evals don't get run
-7. **Version evals with code** - Evals are first-class artifacts
+1. **コーディングの前に評価を定義する** - 成功基準を明確に考えることを強制します
+2. **評価を頻繁に実行する** - リグレッションを早期に発見します
+3. **pass@kを時系列で追跡する** - 信頼性のトレンドを監視します
+4. **可能な限りコードグレーダーを使用する** - 決定論的 > 確率論的
+5. **セキュリティにはヒューマンレビュー** - セキュリティチェックを完全に自動化しない
+6. **評価を高速に保つ** - 遅い評価は実行されません
+7. **評価をコードとともにバージョン管理する** - 評価はファーストクラスの成果物です
 
-## Example: Adding Authentication
+## 例：認証の追加
 
 ```markdown
 ## EVAL: add-authentication

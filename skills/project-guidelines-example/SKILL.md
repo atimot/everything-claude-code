@@ -1,33 +1,33 @@
-# Project Guidelines Skill (Example)
+# プロジェクトガイドラインスキル（例）
 
-This is an example of a project-specific skill. Use this as a template for your own projects.
+これはプロジェクト固有のスキルの例です。自身のプロジェクトのテンプレートとしてご利用ください。
 
-Based on a real production application: [Zenith](https://zenith.chat) - AI-powered customer discovery platform.
-
----
-
-## When to Use
-
-Reference this skill when working on the specific project it's designed for. Project skills contain:
-- Architecture overview
-- File structure
-- Code patterns
-- Testing requirements
-- Deployment workflow
+実際のプロダクションアプリケーションに基づいています: [Zenith](https://zenith.chat) - AI搭載のカスタマーディスカバリープラットフォーム。
 
 ---
 
-## Architecture Overview
+## 使用タイミング
 
-**Tech Stack:**
-- **Frontend**: Next.js 15 (App Router), TypeScript, React
-- **Backend**: FastAPI (Python), Pydantic models
-- **Database**: Supabase (PostgreSQL)
-- **AI**: Claude API with tool calling and structured output
-- **Deployment**: Google Cloud Run
-- **Testing**: Playwright (E2E), pytest (backend), React Testing Library
+対象のプロジェクトで作業する際にこのスキルを参照してください。プロジェクトスキルには以下が含まれます：
+- アーキテクチャ概要
+- ファイル構造
+- コードパターン
+- テスト要件
+- デプロイワークフロー
 
-**Services:**
+---
+
+## アーキテクチャ概要
+
+**技術スタック：**
+- **フロントエンド**: Next.js 15（App Router）、TypeScript、React
+- **バックエンド**: FastAPI（Python）、Pydanticモデル
+- **データベース**: Supabase（PostgreSQL）
+- **AI**: Claude API（ツール呼び出しと構造化出力）
+- **デプロイ**: Google Cloud Run
+- **テスト**: Playwright（E2E）、pytest（バックエンド）、React Testing Library
+
+**サービス構成：**
 ```
 ┌─────────────────────────────────────────────────────────────┐
 │                         Frontend                            │
@@ -52,44 +52,44 @@ Reference this skill when working on the specific project it's designed for. Pro
 
 ---
 
-## File Structure
+## ファイル構造
 
 ```
 project/
 ├── frontend/
 │   └── src/
-│       ├── app/              # Next.js app router pages
-│       │   ├── api/          # API routes
-│       │   ├── (auth)/       # Auth-protected routes
-│       │   └── workspace/    # Main app workspace
-│       ├── components/       # React components
-│       │   ├── ui/           # Base UI components
-│       │   ├── forms/        # Form components
-│       │   └── layouts/      # Layout components
-│       ├── hooks/            # Custom React hooks
-│       ├── lib/              # Utilities
-│       ├── types/            # TypeScript definitions
-│       └── config/           # Configuration
+│       ├── app/              # Next.js App Routerのページ
+│       │   ├── api/          # APIルート
+│       │   ├── (auth)/       # 認証保護されたルート
+│       │   └── workspace/    # メインアプリのワークスペース
+│       ├── components/       # Reactコンポーネント
+│       │   ├── ui/           # ベースUIコンポーネント
+│       │   ├── forms/        # フォームコンポーネント
+│       │   └── layouts/      # レイアウトコンポーネント
+│       ├── hooks/            # カスタムReactフック
+│       ├── lib/              # ユーティリティ
+│       ├── types/            # TypeScript型定義
+│       └── config/           # 設定
 │
 ├── backend/
-│   ├── routers/              # FastAPI route handlers
-│   ├── models.py             # Pydantic models
-│   ├── main.py               # FastAPI app entry
-│   ├── auth_system.py        # Authentication
-│   ├── database.py           # Database operations
-│   ├── services/             # Business logic
-│   └── tests/                # pytest tests
+│   ├── routers/              # FastAPIルートハンドラ
+│   ├── models.py             # Pydanticモデル
+│   ├── main.py               # FastAPIアプリのエントリポイント
+│   ├── auth_system.py        # 認証
+│   ├── database.py           # データベース操作
+│   ├── services/             # ビジネスロジック
+│   └── tests/                # pytestテスト
 │
-├── deploy/                   # Deployment configs
-├── docs/                     # Documentation
-└── scripts/                  # Utility scripts
+├── deploy/                   # デプロイ設定
+├── docs/                     # ドキュメント
+└── scripts/                  # ユーティリティスクリプト
 ```
 
 ---
 
-## Code Patterns
+## コードパターン
 
-### API Response Format (FastAPI)
+### APIレスポンスフォーマット（FastAPI）
 
 ```python
 from pydantic import BaseModel
@@ -111,7 +111,7 @@ class ApiResponse(BaseModel, Generic[T]):
         return cls(success=False, error=error)
 ```
 
-### Frontend API Calls (TypeScript)
+### フロントエンドAPI呼び出し（TypeScript）
 
 ```typescript
 interface ApiResponse<T> {
@@ -144,7 +144,7 @@ async function fetchApi<T>(
 }
 ```
 
-### Claude AI Integration (Structured Output)
+### Claude AI統合（構造化出力）
 
 ```python
 from anthropic import Anthropic
@@ -170,7 +170,7 @@ async def analyze_with_claude(content: str) -> AnalysisResult:
         tool_choice={"type": "tool", "name": "provide_analysis"}
     )
 
-    # Extract tool use result
+    # ツール使用結果を抽出
     tool_use = next(
         block for block in response.content
         if block.type == "tool_use"
@@ -179,7 +179,7 @@ async def analyze_with_claude(content: str) -> AnalysisResult:
     return AnalysisResult(**tool_use.input)
 ```
 
-### Custom Hooks (React)
+### カスタムフック（React）
 
 ```typescript
 import { useState, useCallback } from 'react'
@@ -217,22 +217,22 @@ export function useApi<T>(
 
 ---
 
-## Testing Requirements
+## テスト要件
 
-### Backend (pytest)
+### バックエンド（pytest）
 
 ```bash
-# Run all tests
+# 全テスト実行
 poetry run pytest tests/
 
-# Run with coverage
+# カバレッジ付きで実行
 poetry run pytest tests/ --cov=. --cov-report=html
 
-# Run specific test file
+# 特定のテストファイルを実行
 poetry run pytest tests/test_auth.py -v
 ```
 
-**Test structure:**
+**テスト構造：**
 ```python
 import pytest
 from httpx import AsyncClient
@@ -250,20 +250,20 @@ async def test_health_check(client: AsyncClient):
     assert response.json()["status"] == "healthy"
 ```
 
-### Frontend (React Testing Library)
+### フロントエンド（React Testing Library）
 
 ```bash
-# Run tests
+# テスト実行
 npm run test
 
-# Run with coverage
+# カバレッジ付きで実行
 npm run test -- --coverage
 
-# Run E2E tests
+# E2Eテスト実行
 npm run test:e2e
 ```
 
-**Test structure:**
+**テスト構造：**
 ```typescript
 import { render, screen, fireEvent } from '@testing-library/react'
 import { WorkspacePanel } from './WorkspacePanel'
@@ -284,38 +284,38 @@ describe('WorkspacePanel', () => {
 
 ---
 
-## Deployment Workflow
+## デプロイワークフロー
 
-### Pre-Deployment Checklist
+### デプロイ前チェックリスト
 
-- [ ] All tests passing locally
-- [ ] `npm run build` succeeds (frontend)
-- [ ] `poetry run pytest` passes (backend)
-- [ ] No hardcoded secrets
-- [ ] Environment variables documented
-- [ ] Database migrations ready
+- [ ] すべてのテストがローカルで通過
+- [ ] `npm run build` が成功（フロントエンド）
+- [ ] `poetry run pytest` が通過（バックエンド）
+- [ ] ハードコードされたシークレットがないこと
+- [ ] 環境変数がドキュメント化されていること
+- [ ] データベースマイグレーションの準備完了
 
-### Deployment Commands
+### デプロイコマンド
 
 ```bash
-# Build and deploy frontend
+# フロントエンドのビルドとデプロイ
 cd frontend && npm run build
 gcloud run deploy frontend --source .
 
-# Build and deploy backend
+# バックエンドのビルドとデプロイ
 cd backend
 gcloud run deploy backend --source .
 ```
 
-### Environment Variables
+### 環境変数
 
 ```bash
-# Frontend (.env.local)
+# フロントエンド (.env.local)
 NEXT_PUBLIC_API_URL=https://api.example.com
 NEXT_PUBLIC_SUPABASE_URL=https://xxx.supabase.co
 NEXT_PUBLIC_SUPABASE_ANON_KEY=eyJ...
 
-# Backend (.env)
+# バックエンド (.env)
 DATABASE_URL=postgresql://...
 ANTHROPIC_API_KEY=sk-ant-...
 SUPABASE_URL=https://xxx.supabase.co
@@ -324,22 +324,22 @@ SUPABASE_KEY=eyJ...
 
 ---
 
-## Critical Rules
+## 重要なルール
 
-1. **No emojis** in code, comments, or documentation
-2. **Immutability** - never mutate objects or arrays
-3. **TDD** - write tests before implementation
-4. **80% coverage** minimum
-5. **Many small files** - 200-400 lines typical, 800 max
-6. **No console.log** in production code
-7. **Proper error handling** with try/catch
-8. **Input validation** with Pydantic/Zod
+1. **絵文字禁止** - コード、コメント、ドキュメントに絵文字を使わない
+2. **不変性** - オブジェクトや配列を変更しない
+3. **TDD** - 実装前にテストを書く
+4. **80%カバレッジ** 最低限
+5. **小さなファイルを多数** - 通常200-400行、最大800行
+6. **console.log禁止** - 本番コードでは使用しない
+7. **適切なエラーハンドリング** - try/catchを使用
+8. **入力バリデーション** - Pydantic/Zodを使用
 
 ---
 
-## Related Skills
+## 関連スキル
 
-- `coding-standards.md` - General coding best practices
-- `backend-patterns.md` - API and database patterns
-- `frontend-patterns.md` - React and Next.js patterns
-- `tdd-workflow/` - Test-driven development methodology
+- `coding-standards.md` - 一般的なコーディングのベストプラクティス
+- `backend-patterns.md` - APIおよびデータベースパターン
+- `frontend-patterns.md` - ReactおよびNext.jsパターン
+- `tdd-workflow/` - テスト駆動開発の方法論
